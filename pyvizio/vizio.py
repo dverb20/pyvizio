@@ -4,7 +4,7 @@ from urllib.parse import urlsplit
 import requests
 import xmltodict
 
-from .cmd_input import GetInputsListCommand, GetCurrentInputCommand, ChangeInputCommand
+from .cmd_input import GetInputsListCommand, GetCurrentInputCommand, ChangeInputCommand, GetSettingsListCommand
 from .cmd_pair import BeginPairCommand, CancelPairCommand, PairChallengeCommand
 from .cmd_power import GetPowerStateCommand
 from .cmd_remote import EmulateRemoteCommand
@@ -83,6 +83,9 @@ class Vizio(object):
     def get_inputs(self):
         return self.__invoke_api_auth(GetInputsListCommand())
 
+    def get_settings(self):
+        return self.__invoke_api_auth(GetSettingsListCommand())
+
     def get_current_input(self):
         return self.__invoke_api_auth(GetCurrentInputCommand())
 
@@ -106,6 +109,9 @@ class Vizio(object):
 
     def get_current_volume(self):
         return self.__invoke_api_auth(GetCurrentAudioCommand())
+
+    def ch_cur(self, num=2):
+        return self.__remote_multiple(KeyCodes.CH_PREV, num)
 
     def ch_up(self, num=1):
         return self.__remote_multiple(KeyCodes.CH_UP, num)

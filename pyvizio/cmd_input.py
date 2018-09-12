@@ -3,6 +3,7 @@ from .protocol import get_json_obj, ProtoConstants, InfoCommandBase, CommandBase
 
 class VizioInput(object):
     def __init__(self, json_item, is_extended_metadata):
+
         self.id = int(get_json_obj(json_item, ProtoConstants.Item.HASHVAL))
         self.c_name = get_json_obj(json_item, ProtoConstants.Item.CNAME)
         self.type = get_json_obj(json_item, ProtoConstants.Item.TYPE)
@@ -38,6 +39,23 @@ class GetInputsListCommand(InfoCommandBase):
     @property
     def _url(self):
         return "/menu_native/dynamic/tv_settings/devices/name_input"
+
+class GetSettingsListCommand(InfoCommandBase):
+    """Obtaining list of available inputs"""
+
+    def process_response(self, json_obj):
+        items = get_json_obj(json_obj, ProtoConstants.RESPONSE_ITEMS)
+        inputs = []
+        if items is not None:
+            for itm in items:
+                #v_input = VizioInput(itm, True)
+                inputs.append(itm)
+
+        return inputs
+
+    @property
+    def _url(self):
+        return "/menu_native/dynamic/tv_settings/devices/comp"
 
 
 class GetCurrentInputCommand(InfoCommandBase):

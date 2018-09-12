@@ -84,7 +84,16 @@ def input_get(vizio):
     data = vizio.get_current_input()
     if data is None:
         return
-    _LOGGER.info(data.meta_name)
+    log_data = "\n{0}\t{1}\t{2}\t{3}".format(data.name, data.meta_name, data.type, data.id)
+    _LOGGER.info(log_data)
+
+@cli.command()
+@pass_tv
+def settings_get(vizio):
+    data = vizio.get_settings()
+    if data is None:
+        return
+    _LOGGER.info(data)
 
 
 @cli.command()
@@ -151,12 +160,22 @@ def channel(vizio, state, amount):
     elif "down" == state:
         txt = "Channel down"
         result = vizio.ch_down(amount)
+    elif "current" == state:
+        txt = "Current Channel"
+        result = vizio.ch_cur(2)
     else:
         txt = "Previous channel"
         result = vizio.ch_prev()
     _LOGGER.info(txt)
+    _LOGGER.info(result)
     _LOGGER.info("OK" if result else "ERROR")
 
+@cli.command()
+@click.argument("keyCode", required=True)
+@pass_tv
+def remote(vizio, keyCode):
+    data = vizio._remote(keyCode)
+    _LOGGER.info(data)
 
 @cli.command()
 @click.argument("state", required=False)

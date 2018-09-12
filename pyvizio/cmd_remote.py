@@ -1,4 +1,5 @@
-from .protocol import CommandBase, KeyCodes
+from .protocol import CommandBase, KeyCodes, get_json_obj, ProtoConstants
+from .cmd_input import VizioInput
 
 
 class KeyPressEvent(object):
