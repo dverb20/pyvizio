@@ -38,7 +38,7 @@ class GetInputsListCommand(InfoCommandBase):
 
     @property
     def _url(self):
-        return "/menu_native/dynamic/tv_settings/devices/name_input"
+        return "/menu_native/dynamic/tv_settings/devices"
 
 class GetSettingsListCommand(InfoCommandBase):
     """Obtaining list of available inputs"""
@@ -55,7 +55,7 @@ class GetSettingsListCommand(InfoCommandBase):
 
     @property
     def _url(self):
-        return "/menu_native/dynamic/tv_settings/devices/comp"
+        return "/menu_native/dynamic/tv_settings/devices/cast"
 
 
 class GetCurrentInputCommand(InfoCommandBase):
